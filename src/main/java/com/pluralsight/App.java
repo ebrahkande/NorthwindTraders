@@ -28,43 +28,24 @@ public class App {
             // Create a statement object to send the query
             Statement statement = theConnection.createStatement();
 
-            // Execute the query
-            String query = "SELECT ProductID, ProductName, UnitPrice, UnitsInStock FROM products";
-
             // Execute the query and get the result set
+            String query = "SELECT ProductName FROM products";
+
             ResultSet resultSet = statement.executeQuery(query);
 
-            System.out.println("\n--- Northwind Traders Product Inventory ---");
-
-            // Print Table Header
-            // Use String.format or printf to create aligned columns.
-            System.out.printf("%-4s | %-40s | %-8s | %s%n", "Id", "Name", "Price", "Stock");
-            System.out.println("----------------------------------------------------------------------");
-
-            // Loop through the results and print each product's details
+            // Loop through the results and print each product name
             while (resultSet.next()) {
-
-                int productId = resultSet.getInt("ProductID");
                 String productName = resultSet.getString("ProductName");
-                double unitPrice = resultSet.getDouble("UnitPrice");
-                int unitsInStock = resultSet.getInt("UnitsInStock");
+                System.out.println(productName);
 
-                // Print the data in a single formatted row.
-                System.out.printf("%-4d | %-40s | $%-7.2f | %d%n",
-                        productId,
-                        productName,
-                        unitPrice,
-                        unitsInStock
-                );
             }
 
             // Close the connection
-            // to ensure resources close automatically, even on exceptions.
             theConnection.close();
 
 
         } catch (SQLException e) {
-            System.out.println("Something went wrong with the database connection or query: " + e.getMessage());
+            System.out.println("Something went wrong" + e);
         }
 
     }
